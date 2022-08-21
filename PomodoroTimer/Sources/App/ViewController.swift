@@ -43,7 +43,9 @@ class ViewController: UIViewController {
     //MARK: - Layout
     
     private func setupLayout() {
-        
+        timeLabel.snp.makeConstraints { make in
+            make.center.equalTo(view)
+        }
     }
 
 }
