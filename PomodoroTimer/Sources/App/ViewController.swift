@@ -57,10 +57,27 @@ class ViewController: UIViewController {
         }
     }
     
+    //MARK: - Timer
+    
+    var timer = Timer()
+    var durationTimer = 10
+    
     //MARK: - Action
     
     @objc func startStopButtonPressed() {
         basicAnimation()
+        
+        timer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: #selector(timerAction),
+                                     userInfo: nil,
+                                     repeats: true)
+    }
+    
+    @objc func timerAction() {
+        
+        durationTimer -= 1
+        timeLabel.text = "\(durationTimer)"
     }
     
     // MARK: - Animation
