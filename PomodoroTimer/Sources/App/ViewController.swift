@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupHierarchy()
         setupLayout()
+        configureCircle()
     }
     
     //MARK: - Hierarchy
@@ -56,8 +57,23 @@ class ViewController: UIViewController {
     }
     
     // MARK: - Animation
-    
-    let shapeLayer = CAShapeLayer()
+
+    private func configureCircle() {
+        
+        let shapeLayer = CAShapeLayer()
+        let endAngle = CGFloat.pi * 2
+        let startAngle = CGFloat(0)
+        
+        let circlePath = UIBezierPath(arcCenter: view.center, radius: 138, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        
+        shapeLayer.path = circlePath.cgPath
+        shapeLayer.lineWidth = 11
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeEnd = 1
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        shapeLayer.strokeColor = UIColor.systemBlue.cgColor
+        view.layer.addSublayer(shapeLayer)
+    }
 
 }
 
