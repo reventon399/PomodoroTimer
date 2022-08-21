@@ -21,9 +21,10 @@ class ViewController: UIViewController {
     }()
     
     let startStopButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton(type: .system)
         let image = UIImage(systemName: "play")
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(startStopButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -56,20 +57,37 @@ class ViewController: UIViewController {
         }
     }
     
+    //MARK: - Action
+    
+    @objc func startStopButtonPressed() {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.toValue = 1
+        animation.duration = 3
+        animation.isRemovedOnCompletion = false
+        animation.fillMode = .forwards
+        shapeLayer.add(animation, forKey: "animation")
+    }
+    
     // MARK: - Animation
-
+    
+    let shapeLayer = CAShapeLayer()
+    
     private func configureCircle() {
         
-        let shapeLayer = CAShapeLayer()
+        let center = view.center
         let endAngle = CGFloat.pi * 2
-        let startAngle = CGFloat(0)
+        let startAngle = -CGFloat.pi / 2
         
-        let circlePath = UIBezierPath(arcCenter: view.center, radius: 138, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        let circlePath = UIBezierPath(arcCenter: center,
+                                      radius: 138,
+                                      startAngle: startAngle,
+                                      endAngle: endAngle,
+                                      clockwise: true)
         
         shapeLayer.path = circlePath.cgPath
         shapeLayer.lineWidth = 11
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeEnd = 1
+        shapeLayer.strokeEnd = 0
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.strokeColor = UIColor.systemBlue.cgColor
         view.layer.addSublayer(shapeLayer)
