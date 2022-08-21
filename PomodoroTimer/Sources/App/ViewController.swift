@@ -27,11 +27,18 @@ class ViewController: UIViewController {
         return button
     }()
     
+    //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
+    //MARK: - Hierarchy
+    
+    private func setupHierarchy() {
+        
+    }
 
 }
 
