@@ -84,8 +84,15 @@ class ViewController: UIViewController {
                                       endAngle: endAngle,
                                       clockwise: true)
         
+        let trackShape = CAShapeLayer()
+        trackShape.path = circlePath.cgPath
+        trackShape.fillColor = UIColor.clear.cgColor
+        trackShape.lineWidth = 5
+        trackShape.strokeColor = UIColor.lightGray.cgColor
+        view.layer.addSublayer(trackShape)
+        
         shapeLayer.path = circlePath.cgPath
-        shapeLayer.lineWidth = 11
+        shapeLayer.lineWidth = 5
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeEnd = 0
         shapeLayer.lineCap = CAShapeLayerLineCap.round
