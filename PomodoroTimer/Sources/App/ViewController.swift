@@ -46,6 +46,11 @@ class ViewController: UIViewController {
         timeLabel.snp.makeConstraints { make in
             make.center.equalTo(view)
         }
+        
+        startStopButton.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.top.equalTo(timeLabel.snp.bottom).offset(10)
+        }
     }
 
 }
