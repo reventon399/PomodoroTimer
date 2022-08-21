@@ -56,14 +56,46 @@
 		91DA2D5D28B2350500BAC0EC /* PomodoroTimer */ = {
 			isa = PBXGroup;
 			children = (
+				91DA2D7528B23A3000BAC0EC /* Resources */,
+				91DA2D7728B23A6100BAC0EC /* Sources */,
+			);
+			path = PomodoroTimer;
+			sourceTree = "<group>";
+		};
+		91DA2D7528B23A3000BAC0EC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				91DA2D6728B2350800BAC0EC /* Assets.xcassets */,
+				91DA2D7628B23A3D00BAC0EC /* Configuration */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		91DA2D7628B23A3D00BAC0EC /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				91DA2D6C28B2350800BAC0EC /* Info.plist */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		91DA2D7728B23A6100BAC0EC /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				91DA2D6928B2350800BAC0EC /* LaunchScreen.storyboard */,
+				91DA2D7828B23A8000BAC0EC /* App */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		91DA2D7828B23A8000BAC0EC /* App */ = {
+			isa = PBXGroup;
+			children = (
 				91DA2D5E28B2350500BAC0EC /* AppDelegate.swift */,
 				91DA2D6028B2350500BAC0EC /* SceneDelegate.swift */,
 				91DA2D6228B2350500BAC0EC /* ViewController.swift */,
-				91DA2D6728B2350800BAC0EC /* Assets.xcassets */,
-				91DA2D6928B2350800BAC0EC /* LaunchScreen.storyboard */,
-				91DA2D6C28B2350800BAC0EC /* Info.plist */,
 			);
-			path = PomodoroTimer;
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
