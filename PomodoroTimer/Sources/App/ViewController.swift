@@ -38,7 +38,9 @@ class ViewController: UIViewController {
     //MARK: - Hierarchy
     
     private func setupHierarchy() {
-        
+        view.backgroundColor = .white
+        view.addSubview(timeLabel)
+        view.addSubview(startStopButton)
     }
     //MARK: - Layout
     
