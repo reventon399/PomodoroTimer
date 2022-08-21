@@ -78,6 +78,10 @@ class ViewController: UIViewController {
         
         durationTimer -= 1
         timeLabel.text = "\(durationTimer)"
+        
+        if durationTimer == 0  {
+            timer.invalidate()
+        }
     }
     
     // MARK: - Animation
