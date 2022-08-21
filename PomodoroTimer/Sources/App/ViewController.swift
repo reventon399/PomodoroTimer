@@ -54,6 +54,10 @@ class ViewController: UIViewController {
             make.top.equalTo(timeLabel.snp.bottom).offset(10)
         }
     }
+    
+    // MARK: - Animation
+    
+    let shapeLayer = CAShapeLayer()
 
 }
 
