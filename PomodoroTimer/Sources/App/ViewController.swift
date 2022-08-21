@@ -60,12 +60,7 @@ class ViewController: UIViewController {
     //MARK: - Action
     
     @objc func startStopButtonPressed() {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.toValue = 1
-        animation.duration = 3
-        animation.isRemovedOnCompletion = false
-        animation.fillMode = .forwards
-        shapeLayer.add(animation, forKey: "animation")
+        basicAnimation()
     }
     
     // MARK: - Animation
@@ -98,6 +93,15 @@ class ViewController: UIViewController {
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.strokeColor = UIColor.systemBlue.cgColor
         view.layer.addSublayer(shapeLayer)
+    }
+    
+    private func basicAnimation() {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.toValue = 0
+        animation.duration = CFTimeInterval(durationTimer)
+        animation.isRemovedOnCompletion = false
+        animation.fillMode = .forwards
+        shapeLayer.add(animation, forKey: "animation")
     }
 
 }
