@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     let timeLabel: UILabel = {
        let label = UILabel()
-        label.text = "5"
+        label.text = "10"
         label.font = UIFont.systemFont(ofSize: 50)
         label.textAlignment = .center
         return label
@@ -95,7 +95,7 @@ class ViewController: UIViewController {
         let startAngle = -CGFloat.pi / 2
         
         let circlePath = UIBezierPath(arcCenter: center,
-                                      radius: 138,
+                                      radius: 150,
                                       startAngle: startAngle,
                                       endAngle: endAngle,
                                       clockwise: true)
@@ -110,7 +110,7 @@ class ViewController: UIViewController {
         shapeLayer.path = circlePath.cgPath
         shapeLayer.lineWidth = 5
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeEnd = 0
+        shapeLayer.strokeEnd = 1
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.strokeColor = UIColor.systemBlue.cgColor
         view.layer.addSublayer(shapeLayer)
@@ -119,9 +119,10 @@ class ViewController: UIViewController {
     private func basicAnimation() {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = 0
+//        animation.speed = 4.0
         animation.duration = CFTimeInterval(durationTimer)
         animation.isRemovedOnCompletion = false
-        animation.fillMode = .forwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
         shapeLayer.add(animation, forKey: "animation")
     }
 
