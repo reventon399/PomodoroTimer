@@ -31,12 +31,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setupHierarchy()
+        setupLayout()
     }
     
     //MARK: - Hierarchy
     
     private func setupHierarchy() {
+        
+    }
+    //MARK: - Layout
+    
+    private func setupLayout() {
         
     }
 
