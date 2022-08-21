@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         let button = UIButton(type: .system)
         let image = UIImage(systemName: "play")
         button.setImage(image, for: .normal)
-        button.addTarget(self, action: #selector(startStopButtonPressed), for: .touchUpInside)
+        button.addTarget(Any?.self, action: #selector(startStopButtonPressed), for: .touchUpInside)
         return button
     }()
     
