@@ -59,67 +59,95 @@ class ViewController: UIViewController {
     
     //MARK: - Timer
     
+    var isWorkTime = true
+    var isStarted = true
+    
     var timer = Timer()
     var durationTimer = 10
     
     //MARK: - Action
     
     @objc func startStopButtonPressed() {
-        basicAnimation()
+        if isStarted {
+            basicAnimation()
+            timer = Timer.scheduledTimer(timeInterval: 1,
+                                         target: self,
+                                         selector: #selector(timerAction),
+                                         userInfo: nil,
+                                         repeats: true)
+            startStopButton.setImage(UIImage(systemName: "pause"), for: .normal)
+            resumeAnimation()
+            isStarted = false
+        } else {
+            startStopButton.setImage(UIImage(systemName: "play"), for: .normal)
+            timer.invalidate()
+            pauseAnimation()
+            isStarted = true
+        }
         
-        timer = Timer.scheduledTimer(timeInterval: 1,
-                                     target: self,
-                                     selector: #selector(timerAction),
-                                     userInfo: nil,
-                                     repeats: true)
     }
     
     @objc func timerAction() {
-        
-        durationTimer -= 1
-        timeLabel.text = "\(durationTimer)"
-        
-        if durationTimer == 0  {
+        if durationTimer <= 0  {
+            shapeLayer.strokeColor = UIColor.systemGreen.cgColor
+            startStopButton.setImage(UIImage(systemName: "play"), for: .normal)
+            timeLabel.tintColor = .systemGreen
             timer.invalidate()
+            durationTimer = 5
+            timeLabel.text = "\(durationTimer)"
+        } else {
+            durationTimer -= 1
+            timeLabel.text = "\(durationTimer)"
         }
     }
     
     // MARK: - Animation
     
+    private func resumeAnimation() {
+        
+    }
+    
+    private func pauseAnimation() {
+        
+    }
+    
     let shapeLayer = CAShapeLayer()
     
     private func configureCircle() {
         
+        let trackLayer = CAShapeLayer()
+        
         let center = view.center
-        let endAngle = CGFloat.pi * 2
         let startAngle = -CGFloat.pi / 2
+        let endAngle = 2 * CGFloat.pi
         
-        let circlePath = UIBezierPath(arcCenter: center,
-                                      radius: 150,
-                                      startAngle: startAngle,
-                                      endAngle: endAngle,
-                                      clockwise: true)
+        let circularPath = UIBezierPath(arcCenter: center,
+                                        radius: 150,
+                                        startAngle: startAngle,
+                                        endAngle: endAngle,
+                                        clockwise: true)
         
-        let trackShape = CAShapeLayer()
-        trackShape.path = circlePath.cgPath
-        trackShape.fillColor = UIColor.clear.cgColor
-        trackShape.lineWidth = 5
-        trackShape.strokeColor = UIColor.lightGray.cgColor
-        view.layer.addSublayer(trackShape)
+        trackLayer.path = circularPath.cgPath
+        trackLayer.lineCap = CAShapeLayerLineCap.round
+        trackLayer.lineWidth = 5
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.strokeColor = UIColor.lightGray.cgColor
+        view.layer.addSublayer(trackLayer)
         
-        shapeLayer.path = circlePath.cgPath
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.lineWidth = 5
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeEnd = 1
-        shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.strokeColor = UIColor.systemBlue.cgColor
+        shapeLayer.strokeEnd = 0
         view.layer.addSublayer(shapeLayer)
+        
     }
     
     private func basicAnimation() {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.toValue = 0
-//        animation.speed = 4.0
+        animation.toValue = 1
+//        animation.speed = 1
         animation.duration = CFTimeInterval(durationTimer)
         animation.isRemovedOnCompletion = false
         animation.fillMode = CAMediaTimingFillMode.forwards
@@ -127,4 +155,5 @@ class ViewController: UIViewController {
     }
 
 }
+
 
