@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         label.text = "10"
         label.font = UIFont.systemFont(ofSize: 50)
         label.textAlignment = .center
+        label.tintColor = .systemBlue
         return label
     }()
     
@@ -59,56 +60,104 @@ class ViewController: UIViewController {
     
     //MARK: - Timer
     
-    var isWorkTime = true
-    var isStarted = true
-    
     var timer = Timer()
     var durationTimer = 10
     
     //MARK: - Action
     
+    var isWorkTime = false
+    var isStarted = true
+    var restTime = false
+    
     @objc func startStopButtonPressed() {
         if isStarted {
-            basicAnimation()
-            timer = Timer.scheduledTimer(timeInterval: 1,
-                                         target: self,
-                                         selector: #selector(timerAction),
-                                         userInfo: nil,
-                                         repeats: true)
-            startStopButton.setImage(UIImage(systemName: "pause"), for: .normal)
-            resumeAnimation()
+            if isWorkTime {
+                timer = Timer.scheduledTimer(timeInterval: 1,
+                                             target: self,
+                                             selector: #selector(timerAction),
+                                             userInfo: nil,
+                                             repeats: true)
+                
+                startStopButton.setImage(UIImage(systemName: "pause"), for: .normal)
+                resumeAnimation()
+                isWorkTime = false
+            } else {
+                basicAnimation()
+                timer = Timer.scheduledTimer(timeInterval: 1,
+                                             target: self,
+                                             selector: #selector(timerAction),
+                                             userInfo: nil,
+                                             repeats: true)
+                
+                startStopButton.setImage(UIImage(systemName: "pause"), for: .normal)
+            }
+            
             isStarted = false
         } else {
             startStopButton.setImage(UIImage(systemName: "play"), for: .normal)
             timer.invalidate()
             pauseAnimation()
+            
+            isWorkTime = true
             isStarted = true
         }
-        
     }
     
     @objc func timerAction() {
-        if durationTimer <= 0  {
+        if durationTimer <= 0, !isWorkTime {
             shapeLayer.strokeColor = UIColor.systemGreen.cgColor
             startStopButton.setImage(UIImage(systemName: "play"), for: .normal)
             timeLabel.tintColor = .systemGreen
             timer.invalidate()
             durationTimer = 5
             timeLabel.text = "\(durationTimer)"
+            isWorkTime = false
         } else {
             durationTimer -= 1
             timeLabel.text = "\(durationTimer)"
+            
         }
+//        if durationTimer <= 0 && isWorkTime {
+//                    isWorkTime = false
+////                    timeCounter = vacationTimeInSeconds
+//                    timeLabel.textColor = .systemRed
+//                    startStopButton.tintColor = .systemRed
+//                    timer.invalidate()
+//                    isStarted = false
+//                    startStopButton.setImage(UIImage(systemName: "play"), for: .normal)
+//                    timeLabel.text = "\(durationTimer)"
+//                } else if durationTimer <= 0 && !isWorkTime {
+//                    isWorkTime = true
+////                    timeCounter = workTimeInSeconds
+//                    shapeLayer.strokeColor = UIColor.systemGreen.cgColor
+//                    timeLabel.textColor = .systemGreen
+//                    startStopButton.tintColor = .systemGreen
+//                    timer.invalidate()
+//                    durationTimer = 5
+//                    timeLabel.text = "\(durationTimer)"
+//                    isStarted = false
+//                    startStopButton.setImage(UIImage(systemName: "pause"), for: .normal)
+//                } else {
+//                    durationTimer -= 1
+//                    timeLabel.text = "\(durationTimer)"
+//                }
     }
     
     // MARK: - Animation
     
-    private func resumeAnimation() {
-        
+    private func pauseAnimation() {
+        let pauseTimer = shapeLayer.convertTime(CACurrentMediaTime(), from: nil)
+        shapeLayer.speed = 0
+        shapeLayer.timeOffset = pauseTimer
     }
     
-    private func pauseAnimation() {
-        
+    private func resumeAnimation() {
+        let pauseTimer = shapeLayer.timeOffset
+        shapeLayer.speed = 1
+        shapeLayer.timeOffset = 0
+        shapeLayer.beginTime = 0
+        let timeSincePause = shapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pauseTimer
+        shapeLayer.beginTime = timeSincePause
     }
     
     let shapeLayer = CAShapeLayer()
