@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     // MARK: - Outlets
     
     let timeLabel: UILabel = {
-       let label = UILabel()
-        label.text = "10"
+        let label = UILabel()
+        label.text = "25"
         label.font = UIFont.systemFont(ofSize: 70)
         label.textAlignment = .center
         return label
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
     //MARK: - Timer
     
     var timer = Timer()
-    var durationTimer = 10
+    var durationTimer = 25
     
     //MARK: - Action
     
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
     @objc func startStopButtonPressed() {
         if isStarted {
             if isWorkTime {
-                timer = Timer.scheduledTimer(timeInterval: 0.001,
+                timer = Timer.scheduledTimer(timeInterval: 1,
                                              target: self,
                                              selector: #selector(timerAction),
                                              userInfo: nil,
@@ -82,7 +82,7 @@ class ViewController: UIViewController {
                 isWorkTime = false
             } else {
                 basicAnimation()
-                timer = Timer.scheduledTimer(timeInterval: 0.001,
+                timer = Timer.scheduledTimer(timeInterval: 1,
                                              target: self,
                                              selector: #selector(timerAction),
                                              userInfo: nil,
@@ -90,7 +90,6 @@ class ViewController: UIViewController {
                 
                 startStopButton.setImage(UIImage(systemName: "pause"), for: .normal)
             }
-            
             isStarted = false
         } else {
             startStopButton.setImage(UIImage(systemName: "play"), for: .normal)
@@ -108,26 +107,19 @@ class ViewController: UIViewController {
             startStopButton.setImage(UIImage(systemName: "pause"), for: .normal)
             startStopButton.tintColor = .systemGreen
             timeLabel.tintColor = .systemGreen
-            durationTimer = 5
+            durationTimer = 10
             isWorkTime = true
             isStarted = false
             timeLabel.text = "\(durationTimer)"
             basicAnimation()
         } else if durationTimer <= 0, isWorkTime {
             isWorkTime = false
-            durationTimer = 10
+            durationTimer = 25
             timeLabel.tintColor = .systemBlue
             startStopButton.tintColor = .systemBlue
             isStarted = false
             startStopButton.setImage(UIImage(systemName: "pause"), for: .normal)
-            
-//            timer.invalidate()
             shapeLayer.strokeColor = UIColor.systemBlue.cgColor
-            
-            
-            
-            
-            
             timeLabel.text = "\(durationTimer)"
             basicAnimation()
             
@@ -135,31 +127,6 @@ class ViewController: UIViewController {
             durationTimer -= 1
             timeLabel.text = "\(durationTimer)"
         }
-
-//        if durationTimer <= 0 && isWorkTime {
-//                    isWorkTime = false
-////                    timeCounter = vacationTimeInSeconds
-//                    timeLabel.textColor = .systemRed
-//                    startStopButton.tintColor = .systemRed
-//                    timer.invalidate()
-//                    isStarted = false
-//                    startStopButton.setImage(UIImage(systemName: "play"), for: .normal)
-//                    timeLabel.text = "\(durationTimer)"
-//                } else if durationTimer <= 0 && !isWorkTime {
-//                    isWorkTime = true
-////                    timeCounter = workTimeInSeconds
-//                    shapeLayer.strokeColor = UIColor.systemGreen.cgColor
-//                    timeLabel.textColor = .systemGreen
-//                    startStopButton.tintColor = .systemGreen
-//                    timer.invalidate()
-//                    durationTimer = 5
-//                    timeLabel.text = "\(durationTimer)"
-//                    isStarted = false
-//                    startStopButton.setImage(UIImage(systemName: "pause"), for: .normal)
-//                } else {
-//                    durationTimer -= 1
-//                    timeLabel.text = "\(durationTimer)"
-//                }
     }
     
     // MARK: - Animation
@@ -221,7 +188,6 @@ class ViewController: UIViewController {
         animation.fillMode = CAMediaTimingFillMode.forwards
         shapeLayer.add(animation, forKey: "animation")
     }
-
 }
 
 
